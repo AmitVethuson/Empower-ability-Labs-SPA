@@ -6,67 +6,67 @@
 //page title
 const baseTitle = "Empower Ability Labs";
 
-//an object of all the routes
-const Routes = {
-  "/": {
-    page: "../pages/home.html",
-    title: baseTitle,
-    description: "Empower ability Labs Homepage",
-  },
-  "/schedule-a-call": {
-    page: "../pages/schedule_a_call.html",
-    title: "Schedule a call - " + baseTitle,
-    description: "Empower ability Labs Schedule A call Page",
-  },
-  "/services": {
-    page: "../pages/services.html",
-    title: "Services - " + baseTitle,
-    description: "Empower ability Labs Services Page",
-  },
-};
+// //an object of all the routes
+// const Routes = {
+//   "/": {
+//     page: "../pages/home.html",
+//     title: baseTitle,
+//     description: "Empower ability Labs Homepage",
+//   },
+//   "/schedule-a-call": {
+//     page: "../pages/schedule_a_call.html",
+//     title: "Schedule a call - " + baseTitle,
+//     description: "Empower ability Labs Schedule A call Page",
+//   },
+//   "/services": {
+//     page: "../pages/services.html",
+//     title: "Services - " + baseTitle,
+//     description: "Empower ability Labs Services Page",
+//   },
+// };
 
-//route button function
-const Route = (event) =>{
-    event = event || window.event;
-    event.preventDefault();
-    window.history.pushState({},"",event.target.href);
-    RouteHandler();
+// //route button function
+// const Route = (event) =>{
+//     event = event || window.event;
+//     event.preventDefault();
+//     window.history.pushState({},"",event.target.href);
+//     RouteHandler();
     
-    //checks if the burger menu is open if so close
-    const navbarCollapseState = getNavbarToggleState();
-    if(navbarCollapseState===true){
-        navBarToggler()
-    }
+//     //checks if the burger menu is open if so close
+//     const navbarCollapseState = getNavbarToggleState();
+//     if(navbarCollapseState===true){
+//         navBarToggler()
+//     }
     
     
-}
+// }
 
-//handels the routing
-const RouteHandler = async () => {
-  let pathname = window.location.pathname;
-  if (pathname.length == 0) {
-    pathname = "/";
-  }
-  const selectRoute = Routes[pathname];
-  //get the page data
-  const getPage = await fetch(selectRoute.page).then((content) =>
-    content.text()
-  );
+// //handels the routing
+// const RouteHandler = async () => {
+//   let pathname = window.location.pathname;
+//   if (pathname.length == 0) {
+//     pathname = "/";
+//   }
+//   const selectRoute = Routes[pathname];
+//   //get the page data
+//   const getPage = await fetch(selectRoute.page).then((content) =>
+//     content.text()
+//   );
 
-  //inject the page data to the
-  document.getElementById("root").innerHTML = getPage;
-  document.title = selectRoute.title;
-  document
-    .querySelector(`meta[name="description"]`)
-    .setAttribute("content", selectRoute.description);
-  // re initialize the event listeners after new page is loaded
-  // Inside RouteHandler, after setting innerHTML
-  document.getElementById("root").innerHTML = getPage;
-  // Use setTimeout to wait for the DOM to be updated
-  setTimeout(() => {
-    initPageFunctions(pathname);
-  }, 0);
-};
+//   //inject the page data to the
+//   document.getElementById("root").innerHTML = getPage;
+//   document.title = selectRoute.title;
+//   document
+//     .querySelector(`meta[name="description"]`)
+//     .setAttribute("content", selectRoute.description);
+//   // re initialize the event listeners after new page is loaded
+//   // Inside RouteHandler, after setting innerHTML
+//   document.getElementById("root").innerHTML = getPage;
+//   // Use setTimeout to wait for the DOM to be updated
+//   setTimeout(() => {
+//     initPageFunctions(pathname);
+//   }, 0);
+// };
 
 //initialize the page functions:
 function initPageFunctions(pathname) {
@@ -78,17 +78,17 @@ function initPageFunctions(pathname) {
     document.getElementById("root").innerHTML = getPage;
     document.title = selectRoute.title;
     document.querySelector(`meta[name="description"]`).setAttribute("content",selectRoute.description);
-    // document.getElementById("root").focus()
+    document.getElementById("root").focus()
 }
 
-//check for change
-window.onpopstate = RouteHandler;
+// //check for change
+// window.onpopstate = RouteHandler;
 window.onload = function() {
   openTab(null, 'Home');
 };
-//inital route
-window.route = Route;
-RouteHandler();
+// //inital route
+// window.route = Route;
+// RouteHandler();
 //--------------------------------------------------------------------------------
 
 //----------------------Handle hamberger menu---------------------------
@@ -311,6 +311,7 @@ function knowledgeRunner(){
 }
 
 function openTab(evt, tabName) {
+    
     var i, tabcontent, tablinks;
     document.title = tabName;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -323,7 +324,29 @@ function openTab(evt, tabName) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+
+    if (!evt || window.location.hash !== '#' + tabName) {
+      history.pushState({ tabName: tabName }, '', '#' + tabName);
   }
+  }
+
+  // Event listener for handling browser navigation
+  window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.tabName) {
+        // Manually open the tab without pushing a new state
+        var tabToOpen = document.querySelector(`.tablinks[onclick*='${event.state.tabName}']`);
+        if (tabToOpen) {
+            openTab({ currentTarget: tabToOpen }, event.state.tabName);
+        }
+    } else if (!event.state && window.location.hash) {
+        // Handle direct URL access with a hash
+        var hash = window.location.hash.replace('#', '');
+        var tabToOpen = document.querySelector(`.tablinks[onclick*='${hash}']`);
+        if (tabToOpen) {
+            openTab({ currentTarget: tabToOpen }, hash);
+        }
+    }
+});
   
   // Get the element with id="defaultOpen" and click on it
   document.getElementById("defaultOpen").click();

@@ -16,7 +16,6 @@
 
 
 
-
 /* nav bar menu */
 .navbar-collapse {
     display: none;
@@ -24,7 +23,7 @@
 }
 .navbar{
     background-color:#f8f9fa;
-}
+}logo
 
 .navbar-collapse.collapsed {
     display: block;
@@ -39,13 +38,18 @@
 }
 
 
-#navbarLogo{
-    width: 15rem;
+.navbarLogo{
+    width: 100%; 
+    height: auto; /* Maintain the aspect ratio */
+    max-width: 15rem; 
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .navbar-dark .navbar-nav .nav-item .nav-link {
   color:#a1a4a8;
 }
+
 
 
 
@@ -76,7 +80,12 @@
 .service-section-image{
     grid-row:1;
 }
-
+@media (min-width: 0px) {
+    .navbar-expand-md {
+      background-color: #343a40;
+    }
+  }
+  
 
 @media (max-width:759px) {
     .service-section{
@@ -143,6 +152,16 @@
     align-items: center;
     margin-bottom: 20px;
     /* Adjust as needed */
+}
+
+.tablinks{
+    color: white; /* Set text color to white */
+    background-color: transparent; /* No background color */
+    border: none; /* No border */
+    font-size: 1.25rem; /* Increase the font size, adjust as needed */
+    padding: 0.5rem 1rem; 
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Input fields */
