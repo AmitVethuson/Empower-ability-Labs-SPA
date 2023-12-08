@@ -22,6 +22,9 @@
     display: none;
 
 }
+.navbar{
+    background-color:#f8f9fa;
+}
 
 .navbar-collapse.collapsed {
     display: block;
@@ -40,7 +43,7 @@
     width: 15rem;
 }
 
-.navbar-dark .navbar-nav .nav-item .nav-link{
+.navbar-dark .navbar-nav .nav-item .nav-link {
   color:#a1a4a8;
 }
 
