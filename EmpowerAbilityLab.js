@@ -3,70 +3,9 @@
 //Note: This can be changed to whatever JavaScript formatting you would like
 
 // ------------------------------- Routing---------------------------------
-//page title
-const baseTitle = "Empower Ability Labs";
 
-// //an object of all the routes
-// const Routes = {
-//   "/": {
-//     page: "../pages/home.html",
-//     title: baseTitle,
-//     description: "Empower ability Labs Homepage",
-//   },
-//   "/schedule-a-call": {
-//     page: "../pages/schedule_a_call.html",
-//     title: "Schedule a call - " + baseTitle,
-//     description: "Empower ability Labs Schedule A call Page",
-//   },
-//   "/services": {
-//     page: "../pages/services.html",
-//     title: "Services - " + baseTitle,
-//     description: "Empower ability Labs Services Page",
-//   },
-// };
 
-// //route button function
-// const Route = (event) =>{
-//     event = event || window.event;
-//     event.preventDefault();
-//     window.history.pushState({},"",event.target.href);
-//     RouteHandler();
-    
-//     //checks if the burger menu is open if so close
-//     const navbarCollapseState = getNavbarToggleState();
-//     if(navbarCollapseState===true){
-//         navBarToggler()
-//     }
-    
-    
-// }
 
-// //handels the routing
-// const RouteHandler = async () => {
-//   let pathname = window.location.pathname;
-//   if (pathname.length == 0) {
-//     pathname = "/";
-//   }
-//   const selectRoute = Routes[pathname];
-//   //get the page data
-//   const getPage = await fetch(selectRoute.page).then((content) =>
-//     content.text()
-//   );
-
-//   //inject the page data to the
-//   document.getElementById("root").innerHTML = getPage;
-//   document.title = selectRoute.title;
-//   document
-//     .querySelector(`meta[name="description"]`)
-//     .setAttribute("content", selectRoute.description);
-//   // re initialize the event listeners after new page is loaded
-//   // Inside RouteHandler, after setting innerHTML
-//   document.getElementById("root").innerHTML = getPage;
-//   // Use setTimeout to wait for the DOM to be updated
-//   setTimeout(() => {
-//     initPageFunctions(pathname);
-//   }, 0);
-// };
 
 //initialize the page functions:
 function initPageFunctions(pathname) {
@@ -74,89 +13,125 @@ function initPageFunctions(pathname) {
   if (pathname === "/schedule-a-call") {
     setupScheduleACallPage();
   }
-    //inject the page data to the 
-    document.getElementById("root").innerHTML = getPage;
-    document.title = selectRoute.title;
-    document.querySelector(`meta[name="description"]`).setAttribute("content",selectRoute.description);
-    document.getElementById("root").focus()
+  //inject the page data to the 
+  document.getElementById("root").innerHTML = getPage;
+  document.title = selectRoute.title;
+  document.querySelector(`meta[name="description"]`).setAttribute("content", selectRoute.description);
+  document.getElementById("root").focus()
 }
 
 // //check for change
 // window.onpopstate = RouteHandler;
-window.onload = function() {
+window.onload = function () {
   openTab(null, 'Home');
 };
-// //inital route
-// window.route = Route;
-// RouteHandler();
-//--------------------------------------------------------------------------------
 
-//----------------------Handle hamberger menu---------------------------
-function navBarToggler(){
-    const navbarCollapse = document.getElementById('navbarsExampleDefault');
-    const navTogglerbutton = document.getElementById('navigationToggle');
-    var isExpanded = navTogglerbutton.getAttribute('aria-expanded');
-    //toggle aria-expanded
-    if(isExpanded ==="true"){
-        isExpanded = "false"
-    }else{
-        isExpanded = "true"
-    }
-    navbarCollapse.classList.toggle('collapsed');
-    navTogglerbutton.setAttribute('aria-expanded' ,isExpanded);
-    
+//----------------------- Homepage------------------------------
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  var element = document.getElementById('toggleElement');
+  element.style.display = 'none';
+});
+
+function toggleVisibility() {
+  var element = document.getElementById('toggleElement');
+  if (element.style.display === 'none' || element.style.display === '') {
+    element.style.display = 'block';
+  } else {
+    element.style.display = 'none';
+  }
 }
 
-function getNavbarToggleState(){
-    const navbarCollapse = document.getElementById("navbarsExampleDefault");
-    return navbarCollapse.classList.contains('collapsed')
-    
+function openModal() {
+  document.getElementById('myModal').style.display = 'block';
+  document.getElementById('closeModelButton').focus();
+}
+
+function closeModal() {
+  document.getElementById('myModal').style.display = 'none';
+}
+
+
+window.onclick = function (event) {
+  var modal = document.getElementById('myModal');
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+}
+
+// ------------------------------------------------------------
+
+
+
+
+//----------------------Handle hamberger menu---------------------------
+function navBarToggler() {
+  const navbarCollapse = document.getElementById('navbarItems');
+  const navTogglerbutton = document.getElementById('navigationToggle');
+  var isExpanded = navTogglerbutton.getAttribute('aria-expanded');
+  //toggle aria-expanded
+  if (isExpanded === "true") {
+    isExpanded = "false"
+  } else {
+    isExpanded = "true"
+  }
+  navbarCollapse.classList.toggle('collapsed');
+  navTogglerbutton.setAttribute('aria-expanded', isExpanded);
+
+}
+
+function getNavbarToggleState() {
+  const navbarCollapse = document.getElementById("navbarItems");
+  return navbarCollapse.classList.contains('collapsed')
+
 }
 //------------------------------------------------------------------
 
 // ------------------------------- Schedule a Call ---------------------------------
 function setupSwitchInput() {
-    const switchContainer = document.querySelector(".switch");
-    const checkbox = document.getElementById("emailUpdates");
-    const statusMessage = document.getElementById("emailUpdatesStatus");
-  
-    function updateStatus() {
-      const state = checkbox.checked ? "on" : "off";
-      statusMessage.textContent = `Receive emails about updates and services ${state}`;
-      switchContainer.setAttribute("aria-checked", checkbox.checked.toString());
-    }
-  
-    if (switchContainer) {
-      switchContainer.addEventListener("click", function () {
+  const switchContainer = document.querySelector(".switch");
+  const checkbox = document.getElementById("emailUpdates");
+  const statusMessage = document.getElementById("emailUpdatesStatus");
+
+  function updateStatus() {
+    const state = checkbox.checked ? "on" : "off";
+    statusMessage.textContent = `Receive emails about updates and services ${state}`;
+    switchContainer.setAttribute("aria-checked", checkbox.checked.toString());
+  }
+
+  if (switchContainer) {
+    switchContainer.addEventListener("click", function () {
+      checkbox.checked = !checkbox.checked;
+      updateStatus();
+    });
+
+    switchContainer.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault(); // Prevent scrolling when using Space
         checkbox.checked = !checkbox.checked;
         updateStatus();
-      });
-  
-      switchContainer.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault(); // Prevent scrolling when using Space
-          checkbox.checked = !checkbox.checked;
-          updateStatus();
-        }
-      });
-  
-      // Initialize the status message when the page loads
-      updateStatus();
-    }
+      }
+    });
+
+    // Initialize the status message when the page loads
+    updateStatus();
   }
-  
-  
-  function toggleSwitch(checkbox) {
-    const switchContainer = checkbox.closest('.switch');
-    const isChecked = checkbox.checked;
-    
-    // Update the aria-checked attribute
-    switchContainer.setAttribute("aria-checked", isChecked.toString());
-    
-    // Update the visual state of the switch
-    switchContainer.classList.toggle("switch-on", isChecked);
-  }
-  
+}
+
+
+function toggleSwitch(checkbox) {
+  const switchContainer = checkbox.closest('.switch');
+  const isChecked = checkbox.checked;
+
+  // Update the aria-checked attribute
+  switchContainer.setAttribute("aria-checked", isChecked.toString());
+
+  // Update the visual state of the switch
+  switchContainer.classList.toggle("switch-on", isChecked);
+}
+
 
 function switchKeyDown(event) {
   if (event.key === " " || event.key === "Enter") {
@@ -306,62 +281,62 @@ window.addEventListener("load", setupScheduleACallPage);
 
 
 //Note: This can be changed to whatever JavaScript formatting you would like
-function knowledgeRunner(){
 
+//----------Nav tabs-----------------------
+function openTab(evt, tabName) {
+
+  var i, tabcontent, tablinks;
+  document.title = tabName;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+
+  if (!evt || window.location.hash !== '#' + tabName) {
+    history.pushState({ tabName: tabName }, '', '#' + tabName);
+  }
+  const navbarCollapseState = getNavbarToggleState();
+  if (navbarCollapseState === true) {
+    navBarToggler()
+  }
 }
 
-function openTab(evt, tabName) {
-    
-    var i, tabcontent, tablinks;
-    document.title = tabName;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
+// Event listener for handling browser navigation
+window.addEventListener('popstate', function (event) {
+  if (event.state && event.state.tabName) {
+    // Manually open the tab without pushing a new state
+    var tabToOpen = document.querySelector(`.tablinks[onclick*='${event.state.tabName}']`);
+    if (tabToOpen) {
+      openTab({ currentTarget: tabToOpen }, event.state.tabName);
     }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
+  } else if (!event.state && window.location.hash) {
+    // Handle direct URL access with a hash
+    var hash = window.location.hash.replace('#', '');
+    var tabToOpen = document.querySelector(`.tablinks[onclick*='${hash}']`);
+    if (tabToOpen) {
+      openTab({ currentTarget: tabToOpen }, hash);
     }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-
-    if (!evt || window.location.hash !== '#' + tabName) {
-      history.pushState({ tabName: tabName }, '', '#' + tabName);
   }
-  }
-
-  // Event listener for handling browser navigation
-  window.addEventListener('popstate', function(event) {
-    if (event.state && event.state.tabName) {
-        // Manually open the tab without pushing a new state
-        var tabToOpen = document.querySelector(`.tablinks[onclick*='${event.state.tabName}']`);
-        if (tabToOpen) {
-            openTab({ currentTarget: tabToOpen }, event.state.tabName);
-        }
-    } else if (!event.state && window.location.hash) {
-        // Handle direct URL access with a hash
-        var hash = window.location.hash.replace('#', '');
-        var tabToOpen = document.querySelector(`.tablinks[onclick*='${hash}']`);
-        if (tabToOpen) {
-            openTab({ currentTarget: tabToOpen }, hash);
-        }
-    }
 });
-  
-  // Get the element with id="defaultOpen" and click on it
-  document.getElementById("defaultOpen").click();
-  
-  // Add keyboard accessibility
-  document.addEventListener("keydown", function(event) {
-    if (event.key === "Enter" || event.key === " ") {
-      var srcElement = event.srcElement;
-      if (srcElement.classList.contains('tablinks')) {
-        openTab(event, srcElement.textContent);
-      }
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+// Add keyboard accessibility
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Enter" || event.key === " ") {
+    var srcElement = event.srcElement;
+    if (srcElement.classList.contains('tablinks')) {
+      openTab(event, srcElement.textContent);
     }
-  });
-  
+  }
+});
 
 
 
-knowledgeRunner()
