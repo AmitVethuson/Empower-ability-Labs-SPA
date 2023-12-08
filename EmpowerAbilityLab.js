@@ -83,7 +83,9 @@ function initPageFunctions(pathname) {
 
 //check for change
 window.onpopstate = RouteHandler;
-
+window.onload = function() {
+  openTab(null, 'Home');
+};
 //inital route
 window.route = Route;
 RouteHandler();
@@ -310,6 +312,7 @@ function knowledgeRunner(){
 
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
+    document.title = tabName;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
