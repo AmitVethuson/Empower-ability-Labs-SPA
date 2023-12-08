@@ -121,6 +121,7 @@ function setupSwitchInput() {
 }
 
 
+
 function toggleSwitch(checkbox) {
   const switchContainer = checkbox.closest('.switch');
   const isChecked = checkbox.checked;

@@ -24,7 +24,7 @@
       aria-label="Toggle navigation" id="navigationToggle" onclick="navBarToggler()">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse" id="navbarItems">
+    <div class="navbar-collapse" id="navbarItems" role="menu">
       <button class="tablinks" onclick="openTab(event, 'Home')" id="defaultOpen" role="menuitem">Home</button>
       <button class="tablinks" onclick="openTab(event, 'Services')" role="menuitem">Services</button>
       <button class="tablinks" onclick="openTab(event, 'ScheduleACall')" role="menuitem">Schedule a Call</button>
@@ -71,7 +71,7 @@
 
           <div class="card-Box">
             <div class="card-Title">
-              <h3 id="card1">Our Approach</h3>
+              <h2 id="card1">Our Approach</h2>
             </div>
             <div aria-labelledby="card1" class="card-Body">
               <p>Empower Ability Labs utilizes a hands-on approach to raise awareness and promote empathy. Our immersive
@@ -93,7 +93,7 @@
 
           <div class="card-Box">
             <div class="card-Title">
-              <h3 id="card2">Services</h3>
+              <h2 id="card2">Services</h2>
             </div>
             <div aria-labelledby="card2" class="card-Body">
               <p>Promote accessibility awareness and enhance the user experience.</p>
@@ -114,7 +114,7 @@
 
           <div class="card-Box">
             <div class="card-Title">
-              <h3 id="card3">Testimonials</h3>
+              <h2 id="card3">Testimonials</h2>
             </div>
             <div aria-labelledby="card3" class="card-Body">
               <p>Invite a speaker with disabilities to share their unique journey. This captivating addition to your
@@ -204,13 +204,14 @@
           <div class="form-row">
             <label id="emailUpdatesLabel" for="emailUpdates">Receive emails about updates and services</label>
             <div class="switch" role="switch" aria-checked="false" tabindex="0" aria-labelledby="emailUpdatesLabel">
-              <input type="checkbox" id="emailUpdates" name="emailUpdates" class="visually-hidden">
+              <input tabindex="-1" type="checkbox" id="emailUpdates" name="emailUpdates" class="visually-hidden">
               <!-- visually hidden, but accessible -->
               <span class="switch-label" aria-hidden="true"></span>
             </div>
             <!-- Visually hidden element for screen reader announcements -->
             <span id="emailUpdatesStatus" class="visually-hidden" aria-live="polite"></span>
           </div>
+
 
 
 
